@@ -24,5 +24,5 @@ fs.readdirSync(testFolder).forEach((file) => {
   console.log(file);
 });
 
-// 
+// append new data in a file
 fs.appendFileSync('notes.txt', ' adding data');
