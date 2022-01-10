@@ -2,12 +2,34 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
 //! add
+// yargs(hideBin(process.argv))
+//   .command({
+//     command: "add",
+//     describe: "addition",
+//     handler: (argv) => {
+//       console.log(argv._[1] + argv._[2]);
+//     },
+//   })
+//   .parse();
+
 yargs(hideBin(process.argv))
   .command({
     command: "add",
     describe: "addition",
+    builder:{
+        num1:{
+            describe: "first number",
+            demandOptions: true,
+            type: "integer"
+        },
+        num1:{
+            describe: "secound number",
+            demandOptions: true,
+            type: "integer"
+        },
+    },
     handler: (argv) => {
-      console.log(argv._[1] + argv._[2]);
+      console.log(argv.num1 + argv.num2);
     },
   })
   .parse();
