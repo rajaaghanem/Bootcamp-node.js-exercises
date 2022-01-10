@@ -1,6 +1,6 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { addUser, removeUser, updateUser } from "./users.js";
+import { addUser, removeUser, updateUser, readUser } from "./users.js";
 
 //create add user
 yargs(hideBin(process.argv))
@@ -72,6 +72,24 @@ yargs(hideBin(process.argv))
     },
     handler: (argv) => {
       updateUser(argv.id, argv.name, argv.email);
+    },
+  })
+  .parse();
+
+  // read a user 
+  yargs(hideBin(process.argv))
+  .command({
+    command: "read",
+    describe: "read a user",
+    builder: {
+      id: {
+        describe: "user id",
+        demandOptions: true,
+        type: "string",
+      },
+    },
+    handler: (argv) => {
+      readUser(argv.id);
     },
   })
   .parse();

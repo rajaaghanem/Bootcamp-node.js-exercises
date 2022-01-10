@@ -26,6 +26,7 @@ export function removeUser(userID) {
   saveUser(newUsers);
 }
 
+//update a user
 export function updateUser(userID, userName, userEmail) {
   const users = loadUsers();
 
@@ -34,7 +35,7 @@ export function updateUser(userID, userName, userEmail) {
   });
 
   if (theUser) {
-   const editedUser = {
+    const editedUser = {
       ...theUser,
       id: userID,
       name: userName,
@@ -44,6 +45,21 @@ export function updateUser(userID, userName, userEmail) {
       return user.id === userID ? editedUser : user;
     });
     saveUser(newUsers);
+  }
+}
+
+//read a user
+
+export function readUser(userID) {
+  const users = loadUsers();
+  const user = users.find((user) => {
+    return user.id === userID;
+  });
+
+  if (user) {
+    console.log("name: ", user.name, "email: ", user.email);
+  } else {
+    console.log("User not found");
   }
 }
 
