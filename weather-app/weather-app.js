@@ -1,13 +1,27 @@
-console.log("starting");
+const request = require("request");
 
-setTimeout(()=>{
-    console.log("2 sec");
+const url =
+  "http://api.weatherstack.com/current?access_key=026cd97cacc7a3bd1587ddc0f5ced390&query=tel aviv";
 
-},2000);
+// request({ url: url, json: true }, (error, response) => {
+//   if (error) {
+//     console.log("unable to connect");
+//   } else if (response.body.error) {
+//     console.log("unabla to find location");
+//   } else {
+//     console.log("the temperature is: ",response.body.current.temperature);
+//   }
+// });
 
-setTimeout(()=>{
-    console.log("0 sec");
+const geoUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/haifa.json?access_token=pk.eyJ1IjoicmFqYWFnaGFuZW0iLCJhIjoiY2t5YTlkeDVsMDM4NzJ1bjBhc3Rmdm5wOCJ9.V0Pj86Ql9ewIQwk6iEil2g&limit=1";
 
-},0);
-
-console.log("stopping");
+request({ url: geoUrl, json: true }, (error, response) => {
+    if (error) {
+      console.log("unable to connect");
+    } else if (response.body.features.length===0) {
+      console.log("unabla to find location");
+    } else {
+      console.log("the long is: ",response.body.features[0].geometry.coordinates[0]);
+      console.log("the alt is: ",response.body.features[0].geometry.coordinates[1]);
+    }
+  });
