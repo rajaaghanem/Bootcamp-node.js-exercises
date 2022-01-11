@@ -1,5 +1,7 @@
 const request = require("request");
 
+const address= process.argv[2];
+
 const forcast = (latitude, longitude, callback) => {
   const url =
     "http://api.weatherstack.com/current?access_key=026cd97cacc7a3bd1587ddc0f5ced390&query=" +
@@ -48,7 +50,7 @@ const geoCode = (address, callback) => {
 //   console.log("geoCode data", data);
 // });
 
-geoCode("haifa", (error, data) => {
+geoCode(address, (error, data) => {
   if (error) return console.log("geoCode error", error);
   forcast(data.latitude, data.longitude, (error, forcastData) => {
     if (error) return console.log("forcast error", error);
