@@ -1,18 +1,5 @@
 const request = require("request");
 
-const url =
-  "http://api.weatherstack.com/current?access_key=026cd97cacc7a3bd1587ddc0f5ced390&query=tel aviv";
-
-// request({ url: url, json: true }, (error, response) => {
-//   if (error) {
-//     console.log("unable to connect");
-//   } else if (response.body.error) {
-//     console.log("unabla to find location");
-//   } else {
-//     console.log("the temperature is: ",response.body.current.temperature);
-//   }
-// });
-
 const forcast = (latitude, longitude, callback) => {
   const url =
     "http://api.weatherstack.com/current?access_key=026cd97cacc7a3bd1587ddc0f5ced390&query=" +
@@ -32,10 +19,10 @@ const forcast = (latitude, longitude, callback) => {
   });
 };
 
-forcast (32.8, 34.98333, (error, data)=>{
-    console.log("forcast error", error);
-    console.log("forcast data", data);
-})
+// forcast (32.8, 34.98333, (error, data)=>{
+//     console.log("forcast error", error);
+//     console.log("forcast data", data);
+// })
 
 const geoCode = (address, callback) => {
   const geoUrl =
@@ -56,7 +43,15 @@ const geoCode = (address, callback) => {
   });
 };
 
+// geoCode("haifa", (error, data) => {
+//   console.log("geoCode error", error);
+//   console.log("geoCode data", data);
+// });
+
 geoCode("haifa", (error, data) => {
-  console.log("geoCode error", error);
-  console.log("geoCode data", data);
+  if (error) return console.log("geoCode error", error);
+  forcast(data.latitude, data.longitude, (error, forcastData) => {
+    if (error) return console.log("forcast error", error);
+    console.log("forcast data", forcastData);
+  });
 });
