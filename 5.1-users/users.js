@@ -36,10 +36,9 @@ export function updateUser(userID, userName, userEmail) {
 
   if (theUser) {
     const editedUser = {
-      ...theUser,
       id: userID,
-      name: userName,
-      email: userEmail,
+      name: userName || theUser.name,
+      email: userEmail || theUser.email,
     };
     const newUsers = users.map((user) => {
       return user.id === userID ? editedUser : user;
