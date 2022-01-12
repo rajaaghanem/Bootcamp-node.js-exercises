@@ -15,7 +15,7 @@ app.get("/numbers", (req, res) => {
 //send the array back to the client
 app.post("/numbers", (req, res) => {
   if (array.includes(req.body.number)) {
-    res.status(400).send("number already exists");
+    return res.status(400).send("number already exists");
   } else {
     array.push(req.body.number);
     res.send(array);
@@ -27,7 +27,7 @@ app.post("/numbers", (req, res) => {
 //numbers, send the array back to the client
 app.delete("/numbers/:num", (req, res) => {
   if (!array.includes(Number(req.params.num))) {
-    res.status(400).send("number doesnt exist");
+    return res.status(400).send("number doesnt exist");
   } else {
     const newArr = array.filter((number) => {
       return number !== Number(req.params.num);
@@ -43,11 +43,11 @@ app.delete("/numbers/:num", (req, res) => {
 // numbers, send the array back to the client.
 app.put("/numbers/:num", (req, res) => {
   if (!array.includes(Number(req.params.num))) {
-    res.status(400).send("number doesnt exist");
+    return res.status(400).send("number doesnt exist");
   } else {
-    const newArr= array.map((number)=>{
-       return number === Number(req.params.num)? (req.body.number): number;
-    })
+    const newArr = array.map((number) => {
+      return number === Number(req.params.num) ? req.body.number : number;
+    });
     array = newArr;
     res.send(array);
   }
